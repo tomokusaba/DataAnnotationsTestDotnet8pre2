@@ -1,0 +1,46 @@
+﻿@page "/"
+@using DataAnnotationsTest8pre2.Models;
+
+<PageTitle>Index</PageTitle>
+@Message
+<EditForm Model="@model" OnValidSubmit="@ValidSubmit" OnInvalidSubmit="@InvalidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <p><label>変更しないとダメ</label>
+    <InputDate @bind-Value="model.Col1" />
+    </p>
+    <p><label>0～10(境界値を含む）</label>
+    <InputNumber @bind-Value="model.Col2" />
+    </p>
+    <p><label>0から10(境界値はダメ)</label>
+    <InputNumber @bind-Value="model.Col3" />
+    </p>
+    <p><label>8文字から20文字</label>
+    <InputText @bind-Value="model.Col4" />
+    </p>
+    <p>
+        <label>Microsoft,Apple,Amazon,Facebook,GoogleのみOK</label>
+    <InputText @bind-Value="model.Col5" />
+    </p>
+    <p>
+        <label>Excel,Wordはダメ</label>
+    <InputText @bind-Value="model.Col6" />
+    </p>
+    <button type="submit">送信</button>
+</EditForm>
+
+@code {
+    private TestModel model = new();
+
+    private string? Message;
+
+    private void ValidSubmit()
+    {
+        Message = "モデル検証OK";
+    }
+
+    private void InvalidSubmit()
+    {
+        Message = "モデル検証NG";
+    }
+}
